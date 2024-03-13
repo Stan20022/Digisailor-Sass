@@ -10,7 +10,35 @@ import { FaLinkedin, FaFacebook } from "react-icons/fa";
 import { FaWhatsapp } from "react-icons/fa6";
 import { IoMail } from "react-icons/io5";
 
-export const menuItems = [
+// Interfaces for constants
+interface MenuItem {
+  href: string;
+  name: string;
+}
+
+interface SidebarMenuItems {
+  href: string;
+  menu: string;
+  icons: any;
+}
+
+interface SocialIcons {
+  href: string;
+  title: string;
+  name: any;
+}
+
+interface FeaturesName {
+  name: string;
+}
+
+interface FeatureSwiper {
+  heading: string;
+  description: string;
+}
+
+// constants
+export const menuItems: MenuItem[] = [
   {
     href: "/",
     name: "Home",
@@ -29,7 +57,7 @@ export const menuItems = [
   },
 ];
 
-export const sidebarMenuItems = [
+export const sidebarMenuItems: SidebarMenuItems[] = [
   {
     href: "/dashboard",
     menu: "Dashboard",
@@ -72,7 +100,7 @@ export const sidebarMenuItems = [
   },
 ];
 
-export const socialIcons = [
+export const socialIcons: SocialIcons[] = [
   {
     href: "https://www.linkedin.com/company/digisailor/mycompany/",
     title: "Linkedin",
@@ -95,7 +123,7 @@ export const socialIcons = [
   },
 ];
 
-export const featuresName = [
+export const featuresName: FeaturesName[] = [
   {
     name: "Plans",
   },
@@ -116,5 +144,48 @@ export const featuresName = [
   },
   {
     name: "Customization",
+  },
+];
+
+export const featureSwiper: FeatureSwiper[] = [
+  {
+    heading: "Convenient Dashboard",
+    description:
+      "A user friendly interface that displays summary information, key performance indicators, and important data for quick reference and decision-making.",
+  },
+  {
+    heading: "Stunning Templates",
+    description:
+      "A collection of professionally designed, visually appealing templates that can be used to create websites and more.",
+  },
+  {
+    heading: "Staffs Management",
+    description:
+      "A system for managing staff details, schedules, and tasks to ensure efficient operation and resource allocation.",
+  },
+  {
+    heading: "Appointment Scheduler",
+    description:
+      "A tool for scheduling and managing appointments, meetings, or events, ensuring no conflicts and efficient time management.",
+  },
+  {
+    heading: "Contacts Storage",
+    description:
+      "A secure place to store and manage contact information such as names, addresses, phone numbers, and emails for easy access and communication.",
+  },
+  {
+    heading: "Event Management",
+    description:
+      "A comprehensive tool for planning, organizing, and executing events, including guest lists, venues, schedules, and more.",
+  },
+  {
+    heading: "Plans & Prices",
+    description:
+      "Detailed information about the various plans, packages, or services offered, including their features and prices for easy comparison and selection.",
+  },
+  {
+    heading: "Customizations",
+    description:
+      "Options and tools to tailor the product or service to meet specific needs or preferences, enhancing user experience and satisfaction.",
   },
 ];

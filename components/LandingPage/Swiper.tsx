@@ -22,7 +22,12 @@ export default function Swiper() {
   }, []);
 
   return (
-    <section className={`${poppins.className} p-16 bg-[#63EC33] rounded-t-lg`}>
+    <motion.section
+      initial={{ background: "#FFF" }}
+      whileInView={{ background: "#63EC33" }}
+      transition={{ ease: "linear", duration: 1, delay: 0.5 }}
+      className={`${poppins.className} p-16 rounded-t-lg`}
+    >
       <div className="flex justify-between relative">
         <div className="w-3/4">
           <div className="mt-4 text-5xl font-bold tracking-wide">
@@ -68,6 +73,6 @@ export default function Swiper() {
           <SwiperJS />
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
