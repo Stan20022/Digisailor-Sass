@@ -88,10 +88,10 @@ export default function Footer() {
             transition={{ ease: "easeInOut", duration: 1, delay: 2 }}
             className="text-justify text-base"
           >
-            Manage your business with our CRM SaaS application. It's like a one
-            stop shop for all your company's needs. From managing data to
-            keeping track of your team, our app makes everything easier. It's
-            user-friendly, so you don't need to be a tech wizard to use it. Get
+            Manage your business with our CRM SaaS application. It&apos;s like a one
+            stop shop for all your company&apos;s needs. From managing data to
+            keeping track of your team, our app makes everything easier. It&apos;s
+            user-friendly, so you don&apos;t need to be a tech wizard to use it. Get
             ready to work smarter, not harder!
           </motion.p>
 
@@ -259,7 +259,7 @@ export default function Footer() {
           <h1 className="font-bold">Features</h1>
           <div className="mt-6 text-white text-opacity-[0.5]">
             {featuresName.map((feature, featureKey) => (
-              <div className="flex items-center gap-2">
+              <div key={featureKey} className="flex items-center gap-2">
                 <div className="bg-[#63EC33] h-2 w-2 rounded-full"></div>
                 <p key={featureKey}>{feature.name}</p>
               </div>
