@@ -5,8 +5,8 @@ import "../globals.scss";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "CRM | SAAS",
-  description: "The best CRM for manage your business",
+  title: "CRM | Login & Register",
+  description: "Customer Relation Management Application for manage your company",
 };
 
 export default function Layout({
