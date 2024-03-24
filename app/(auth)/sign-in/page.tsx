@@ -16,10 +16,14 @@ import { GrLock } from "react-icons/gr";
 import { CiWarning } from "react-icons/ci";
 import { TfiReload } from "react-icons/tfi";
 import { IoMailOutline } from "react-icons/io5";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "400" });
 
 const Register = () => {
+  const router = useRouter();
+  const [error, setError] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -43,20 +47,24 @@ const Register = () => {
       return;
     }
 
-    const response = await fetch("/api/signIn", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
-
-    if (response.ok) {
-      alert("LogIn successfully");
-      setIsShowSuccess(true);
+    try {
+      const userCredential = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+        callbackUrl: "/dashboard",
+      });
       setIsLoading(false);
-    } else {
-      alert("Failed to Login | Something went wrong");
+
+      if (userCredential && userCredential.ok) {
+        setIsShowSuccess(true);
+        router.push("/dashboard");
+      } else {
+        setError("LogIn failed due incorrect credentials");
+      }
+    } catch (error) {
+      console.error("Errors", error);
+      setError("Something went wrong! Please try again");
       setIsLoading(false);
     }
   };
@@ -240,6 +248,33 @@ const Register = () => {
                 <div
                   onClick={() => setIsShowSuccess(false)}
                   className="text-[#63EC33] underline font-bold"
+                >
+                  click to close.
+                </div>
+              </AlertDescription>
+            </Alert>
+          </motion.div>
+        )}
+
+        {error && (
+          <motion.div
+            initial={{ x: "-100%" }}
+            exit={{ x: "-100%" }}
+            animate={{ x: 0 }}
+            transition={{ type: "spring", damping: 10, stiffness: 100 }}
+            className="fixed bottom-10 left-0"
+          >
+            <Alert
+              variant="destructive"
+              className="bg-white bg-opacity-5 backdrop-blur-sm"
+            >
+              <CiWarning className="h-4 w-4" />
+              <AlertTitle>Error</AlertTitle>
+              <AlertDescription>
+                {error}
+                <div
+                  onClick={() => setError("")}
+                  className="text-red-500 underline font-bold"
                 >
                   click to close.
                 </div>

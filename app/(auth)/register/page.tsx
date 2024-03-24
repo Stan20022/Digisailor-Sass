@@ -16,10 +16,13 @@ import { GrLock } from "react-icons/gr";
 import { CiWarning } from "react-icons/ci";
 import { TfiReload } from "react-icons/tfi";
 import { IoMailOutline } from "react-icons/io5";
+import { auth } from "@/lib/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "400" });
 
 const Register = () => {
+  const [error, setError] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -43,20 +46,22 @@ const Register = () => {
       return;
     }
 
-    const response = await fetch("/api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      const signUpUser = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
 
-    if (response.ok) {
-      alert("User registered successfully");
-      setIsShowSuccess(true);
+      if (signUpUser.user) {
+        setIsShowSuccess(true);
+      }
       setIsLoading(false);
-    } else {
-      alert("Failed to register user | Something went wrong");
+    } catch (error) {
+      const errorCode = (error as any).code;
+      if (errorCode == "auth/email-already-in-use") {
+        setError("The email address is already in use");
+      }
       setIsLoading(false);
     }
   };
@@ -109,6 +114,32 @@ const Register = () => {
                 />
               </div>
 
+              <div className="mt-4 w-96 flex justify-between items-center">
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="terms"
+                    className="bg-[#63EC33]"
+                    defaultChecked
+                    disabled
+                  />
+                  <label
+                    htmlFor="terms"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    remember me
+                  </label>
+                </div>
+
+                <div className="text-[12px]">
+                  <Link
+                    href={"/sign-in"}
+                    className="underline text-[#63EC33] font-bold"
+                  >
+                    Already have an account?
+                  </Link>
+                </div>
+              </div>
+
               <div className="mt-4">
                 {!isLoading ? (
                   <Button className="bg-[#63EC33] hover:bg-[#2da50d] w-96">
@@ -125,10 +156,7 @@ const Register = () => {
 
             <div className="text-[12px] flex justify-center items-center mt-6">
               Already have an account?{" "}
-              <Link
-                href={"/sign-in"}
-                className="font-bold text-[#63EC33] ml-4"
-              >
+              <Link href={"/sign-in"} className="font-bold text-[#63EC33] ml-4">
                 click to Sign In.
               </Link>
             </div>
@@ -208,10 +236,37 @@ const Register = () => {
               <TiTick className="h-4 w-4 text-[#63EC33]" />
               <AlertTitle>Success</AlertTitle>
               <AlertDescription>
-                Registered Successfully
-                <div
-                  onClick={() => setIsShowSuccess(false)}
+                Registered successfully now you can
+                <Link
+                  href={"/sign-in"}
                   className="text-[#63EC33] underline font-bold"
+                >
+                  SIGNIN.
+                </Link>
+              </AlertDescription>
+            </Alert>
+          </motion.div>
+        )}
+
+        {error && (
+          <motion.div
+            initial={{ x: "-100%" }}
+            exit={{ x: "-100%" }}
+            animate={{ x: 0 }}
+            transition={{ type: "spring", damping: 10, stiffness: 100 }}
+            className="fixed bottom-10 left-0"
+          >
+            <Alert
+              variant="destructive"
+              className="bg-white bg-opacity-5 backdrop-blur-sm"
+            >
+              <CiWarning className="h-4 w-4" />
+              <AlertTitle>Error</AlertTitle>
+              <AlertDescription>
+                {error}
+                <div
+                  onClick={() => setError("")}
+                  className="text-red-500 underline font-bold"
                 >
                   click to close.
                 </div>
