@@ -1,7 +1,9 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
+import { signIn } from "next-auth/react";
 import { Poppins } from "next/font/google";
+import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -12,16 +14,14 @@ import LoginSwiper from "@/components/LandingPage/MiniComponent/LoginSwiper";
 
 // Icons
 import { TiTick } from "react-icons/ti";
-import { GrLock } from "react-icons/gr";
-import { CiWarning } from "react-icons/ci";
 import { TfiReload } from "react-icons/tfi";
-import { IoMailOutline } from "react-icons/io5";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { PiPasswordThin } from "react-icons/pi";
+import { CiWarning, CiMail } from "react-icons/ci";
+
 
 const poppins = Poppins({ subsets: ["latin"], weight: "400" });
 
-const Register = () => {
+const SignIn = () => {
   const router = useRouter();
   const [error, setError] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -73,7 +73,7 @@ const Register = () => {
     <main
       className={`${poppins.className}relative bg-white flex justify-center items-center h-screen`}
     >
-      <div className="flex justify-between items-center h-[80vh] w-[80vw] shadow-lg rounded-lg">
+      <div className="flex justify-between items-center h-[85vh] w-[80vw] shadow-lg rounded-lg">
         <div className="w-1/2 h-full p-16">
           <div>
             <Image
@@ -98,7 +98,7 @@ const Register = () => {
           <div className="mt-8">
             <form onSubmit={handleSubmit}>
               <div className="relative">
-                <IoMailOutline className="absolute top-2 left-2 text-2xl text-gray-400" />
+                <CiMail className="absolute top-2 left-2 text-2xl text-gray-400" />
                 <Input
                   type="email"
                   placeholder="Email"
@@ -109,7 +109,7 @@ const Register = () => {
               </div>
 
               <div className="relative mt-4">
-                <GrLock className="absolute top-2 left-2 text-2xl text-gray-400" />
+                <PiPasswordThin className="absolute top-2 left-2 text-2xl text-gray-400" />
                 <Input
                   type="password"
                   placeholder="Password"
@@ -148,7 +148,7 @@ const Register = () => {
               <div className="mt-4">
                 {!isLoading ? (
                   <Button className="bg-main hover:bg-[#2da50d] w-96">
-                    Register
+                    Login
                   </Button>
                 ) : (
                   <Button disabled className="bg-[#2da50d] w-96">
@@ -244,7 +244,7 @@ const Register = () => {
               <TiTick className="h-4 w-4 text-main" />
               <AlertTitle>Success</AlertTitle>
               <AlertDescription>
-                Registered Successfully
+                SignIn Successful
                 <div
                   onClick={() => setIsShowSuccess(false)}
                   className="text-main underline font-bold"
@@ -287,4 +287,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default SignIn;

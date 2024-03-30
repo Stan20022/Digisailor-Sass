@@ -43,7 +43,7 @@ export default function LoginSwiper() {
     >
       {loginSwiper.map((loginSwipers, loginSwiperKey) => (
         <SwiperSlide key={loginSwiperKey}>
-          <div className="h-[80vh] bg-[#63EC33] p-4 rounded-lg relative">
+          <div className="h-[85vh] bg-main p-4 rounded-lg relative">
             <h1 className="font-bold text-2xl flex items-center justify-between text-white">
               {loginSwipers.heading}
               <Link href={loginSwipers.href}>

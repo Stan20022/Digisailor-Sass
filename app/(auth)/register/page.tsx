@@ -12,14 +12,14 @@ import LoginSwiper from "@/components/LandingPage/MiniComponent/LoginSwiper";
 
 // Icons
 import { TiTick } from "react-icons/ti";
+import { SlPicture } from "react-icons/sl";
 import { TfiReload } from "react-icons/tfi";
 import { PiPasswordThin } from "react-icons/pi";
-import { CiWarning, CiMail } from "react-icons/ci";
-import { SlPicture } from "react-icons/sl";
+import { CiUser, CiWarning, CiMail } from "react-icons/ci";
 
 // Firebase
-import { auth, db, storage } from "@/lib/firebase";
 import { doc, setDoc } from "firebase/firestore";
+import { auth, db, storage } from "@/lib/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { StorageReference, ref, uploadBytes } from "firebase/storage";
 
@@ -36,11 +36,13 @@ const Register = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isAlertPasswords, setIsAlertPasswords] = useState<boolean>(false);
 
+  const [fullName, setFullName] = useState<string>("");
+
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     setIsLoading(true);
 
-    if (!email || !password || !confirmPassword || !selectedFile) {
+    if (!email || !password || !confirmPassword || !selectedFile || !fullName) {
       setIsAlertFields(true);
       setIsLoading(false);
       return;
@@ -80,6 +82,8 @@ const Register = () => {
         await setDoc(doc(db, "users", signUpUser.user.uid), {
           email: signUpUser.user.email,
           uid: signUpUser.user.uid,
+          fullName: fullName,
+          role: "Admin",
         });
         setIsShowSuccess(true);
       }
@@ -97,8 +101,8 @@ const Register = () => {
     <main
       className={`${poppins.className}relative bg-white flex justify-center items-center h-screen`}
     >
-      <div className="flex justify-between items-center h-[80vh] w-[80vw] shadow-lg rounded-lg">
-        <div className="w-1/2 h-full p-16">
+      <div className="flex justify-between items-center h-[85vh] w-[80vw] shadow-lg rounded-lg">
+        <div className="w-1/2 h-full px-16 py-4">
           <div>
             <Image
               src={"https://www.digisailor.com/images/logo.png"}
@@ -119,55 +123,69 @@ const Register = () => {
           {/* Register Form */}
           <div className="mt-8">
             <form onSubmit={handleSubmit}>
-              <div className="flex justify-normal items-center gap-4 border border-gray-200 text-gray-400 text-sm w-96 p-2 rounded-lg">
-                <SlPicture className="text-xl" />
-                <label htmlFor="profile_pic">
-                  {selectedFile ? "Selected" : "Select your profile picture"}
-                </label>
-                <Input
-                  id="profile_pic"
-                  type="file"
-                  accept="image/*"
-                  onChange={(event) =>
-                    setSelectedFile(event.target.files?.[0] || null)
-                  }
-                  className="px-10 w-96 hidden"
-                />
+              <div className="">
+                <div className="flex justify-normal items-center gap-4 border border-gray-200 text-gray-400 text-sm w-96 p-2 rounded-lg">
+                  <SlPicture className="text-xl" />
+                  <label htmlFor="profile_pic">
+                    {selectedFile ? "Selected" : "Select your profile picture"}
+                  </label>
+                  <Input
+                    id="profile_pic"
+                    type="file"
+                    accept="image/*"
+                    onChange={(event) =>
+                      setSelectedFile(event.target.files?.[0] || null)
+                    }
+                    className="px-10 w-96 hidden"
+                  />
+                </div>
+
+                <div className="relative mt-4">
+                  <CiUser className="absolute top-2 left-2 text-2xl text-gray-400" />
+                  <Input
+                    type="text"
+                    placeholder="Full Name"
+                    value={fullName}
+                    onChange={(event) => setFullName(event.target.value)}
+                    className="px-10 w-96 placeholder:text-gray-400"
+                  />
+                </div>
+
+                <div className="relative mt-4">
+                  <CiMail className="absolute top-2 left-2 text-2xl text-gray-400" />
+                  <Input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    className="px-10 w-96 placeholder:text-gray-400"
+                  />
+                </div>
+
+                <div className="relative mt-4">
+                  <PiPasswordThin className="absolute top-2 left-2 text-2xl text-gray-400" />
+                  <Input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                    className="px-10 w-96 placeholder:text-gray-400"
+                  />
+                </div>
+
+                <div className="relative mt-4">
+                  <PiPasswordThin className="absolute top-2 left-2 text-2xl text-gray-400" />
+                  <Input
+                    type="password"
+                    placeholder="Confirm Password"
+                    value={confirmPassword}
+                    onChange={(event) => setConfirmPassword(event.target.value)}
+                    className="px-10 w-96 placeholder:text-gray-400"
+                  />
+                </div>
               </div>
 
-              <div className="relative mt-4">
-                <CiMail className="absolute top-2 left-2 text-2xl text-gray-400" />
-                <Input
-                  type="email"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  className="px-10 w-96 placeholder:text-gray-400"
-                />
-              </div>
-
-              <div className="relative mt-4">
-                <PiPasswordThin className="absolute top-2 left-2 text-2xl text-gray-400" />
-                <Input
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(event) => setPassword(event.target.value)}
-                  className="px-10 w-96 placeholder:text-gray-400"
-                />
-              </div>
-
-              <div className="relative mt-4">
-                <PiPasswordThin className="absolute top-2 left-2 text-2xl text-gray-400" />
-                <Input
-                  type="password"
-                  placeholder="Confirm Password"
-                  value={confirmPassword}
-                  onChange={(event) => setConfirmPassword(event.target.value)}
-                  className="px-10 w-96 placeholder:text-gray-400"
-                />
-              </div>
-
+              {/* Checkbox */}
               <div className="mt-4 w-96 flex justify-between items-center">
                 <div className="flex items-center space-x-2">
                   <Checkbox
