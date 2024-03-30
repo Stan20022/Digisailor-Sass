@@ -12,12 +12,16 @@ import LoginSwiper from "@/components/LandingPage/MiniComponent/LoginSwiper";
 
 // Icons
 import { TiTick } from "react-icons/ti";
-import { GrLock } from "react-icons/gr";
-import { CiWarning } from "react-icons/ci";
 import { TfiReload } from "react-icons/tfi";
-import { IoMailOutline } from "react-icons/io5";
-import { auth } from "@/lib/firebase";
+import { PiPasswordThin } from "react-icons/pi";
+import { CiWarning, CiMail } from "react-icons/ci";
+import { SlPicture } from "react-icons/sl";
+
+// Firebase
+import { auth, db, storage } from "@/lib/firebase";
+import { doc, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { StorageReference, ref, uploadBytes } from "firebase/storage";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "400" });
 
@@ -26,15 +30,17 @@ const Register = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isAlertFields, setIsAlertFields] = useState<boolean>(false);
-  const [isAlertPasswords, setIsAlertPasswords] = useState<boolean>(false);
   const [isShowSuccess, setIsShowSuccess] = useState<boolean>(false);
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [isAlertFields, setIsAlertFields] = useState<boolean>(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isAlertPasswords, setIsAlertPasswords] = useState<boolean>(false);
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     setIsLoading(true);
 
-    if (!email || !password) {
+    if (!email || !password || !confirmPassword || !selectedFile) {
       setIsAlertFields(true);
       setIsLoading(false);
       return;
@@ -46,6 +52,12 @@ const Register = () => {
       return;
     }
 
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const signUpUser = await createUserWithEmailAndPassword(
         auth,
@@ -53,7 +65,22 @@ const Register = () => {
         password
       );
 
+      // Firebase Storage
+      if (signUpUser.user && selectedFile) {
+        const storageRef: StorageReference = ref(
+          storage,
+          `profile-pictures/${signUpUser.user.uid}`
+        );
+
+        await uploadBytes(storageRef, selectedFile);
+      }
+
+      //Firestore
       if (signUpUser.user) {
+        await setDoc(doc(db, "users", signUpUser.user.uid), {
+          email: signUpUser.user.email,
+          uid: signUpUser.user.uid,
+        });
         setIsShowSuccess(true);
       }
       setIsLoading(false);
@@ -92,25 +119,52 @@ const Register = () => {
           {/* Register Form */}
           <div className="mt-8">
             <form onSubmit={handleSubmit}>
-              <div className="relative">
-                <IoMailOutline className="absolute top-2 left-2 text-2xl text-gray-400" />
+              <div className="flex justify-normal items-center gap-4 border border-gray-200 text-gray-400 text-sm w-96 p-2 rounded-lg">
+                <SlPicture className="text-xl" />
+                <label htmlFor="profile_pic">
+                  {selectedFile ? "Selected" : "Select your profile picture"}
+                </label>
+                <Input
+                  id="profile_pic"
+                  type="file"
+                  accept="image/*"
+                  onChange={(event) =>
+                    setSelectedFile(event.target.files?.[0] || null)
+                  }
+                  className="px-10 w-96 hidden"
+                />
+              </div>
+
+              <div className="relative mt-4">
+                <CiMail className="absolute top-2 left-2 text-2xl text-gray-400" />
                 <Input
                   type="email"
                   placeholder="Email"
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
-                  className="px-10 w-96"
+                  className="px-10 w-96 placeholder:text-gray-400"
                 />
               </div>
 
               <div className="relative mt-4">
-                <GrLock className="absolute top-2 left-2 text-2xl text-gray-400" />
+                <PiPasswordThin className="absolute top-2 left-2 text-2xl text-gray-400" />
                 <Input
                   type="password"
                   placeholder="Password"
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
-                  className="px-10 w-96"
+                  className="px-10 w-96 placeholder:text-gray-400"
+                />
+              </div>
+
+              <div className="relative mt-4">
+                <PiPasswordThin className="absolute top-2 left-2 text-2xl text-gray-400" />
+                <Input
+                  type="password"
+                  placeholder="Confirm Password"
+                  value={confirmPassword}
+                  onChange={(event) => setConfirmPassword(event.target.value)}
+                  className="px-10 w-96 placeholder:text-gray-400"
                 />
               </div>
 

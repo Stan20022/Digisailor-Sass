@@ -5,10 +5,9 @@
 ---
 [![](https://visitcount.itsvg.in/api?id=Sridhar-FullStack-Dev&icon=0&color=0)](https://visitcount.itsvg.in)
 
-# .ENV
-NEXT_PUBLIC_API_KEY=your-api-key
-NEXT_PUBLIC_AUTH_DOMAIN=your-key
-NEXT_PUBLIC_PROJECT_ID=your-key
-NEXT_PUBLIC_STORAGE_BUCKET=your-key
-NEXT_PUBLIC_MESSAGING_SENDER_ID=your-key
-NEXT_PUBLIC_APP_ID=your-key
+NEXT_PUBLIC_APIKEY=<your_api_key>
+NEXT_PUBLIC_AUTHDOMAIN=<your_auth_domain>
+NEXT_PUBLIC_PROJECTID=<your_project_id>
+NEXT_PUBLIC_STORAGEBUCKET=<your_storage_bucket>
+NEXT_PUBLIC_MESSAGINGSENDERID=<your_messaging_sender_id>
+NEXT_PUBLIC_APPID=<your_app_id>
