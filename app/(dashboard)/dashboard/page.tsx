@@ -59,7 +59,7 @@ export default function UserProfile() {
 
   return (
     <div className="h-screen overflow-y-scroll">
-      {userProfile ? (
+      {userProfile && (
         <div>
           {userProfile.photoURL && (
             <Popover>
@@ -98,8 +98,6 @@ export default function UserProfile() {
             </Popover>
           )}
         </div>
-      ) : (
-        <p>You need to Signin to use this page</p>
       )}
     </div>
   );
