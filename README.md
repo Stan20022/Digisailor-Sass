@@ -5,4 +5,10 @@
 ---
 [![](https://visitcount.itsvg.in/api?id=Sridhar-FullStack-Dev&icon=0&color=0)](https://visitcount.itsvg.in)
 
-<!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
+# .ENV
+NEXT_PUBLIC_API_KEY=your-api-key
+NEXT_PUBLIC_AUTH_DOMAIN=your-key
+NEXT_PUBLIC_PROJECT_ID=your-key
+NEXT_PUBLIC_STORAGE_BUCKET=your-key
+NEXT_PUBLIC_MESSAGING_SENDER_ID=your-key
+NEXT_PUBLIC_APP_ID=your-key
