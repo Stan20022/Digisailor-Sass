@@ -77,7 +77,7 @@ export default function Footer() {
             transition={{ ease: "easeInOut", duration: 1, delay: 1.5 }}
             className="mt-4"
           >
-            <span className="text-[#63EC33]">10x faster</span> than before ?
+            <span className="text-main">10x faster</span> than before ?
           </motion.div>
         </div>
 
@@ -113,7 +113,7 @@ export default function Footer() {
 
             <Button
               asChild
-              className="rounded-full h-14 w-44 bg-[#63EC33] hover:bg-[#2da50d] transition-all ease-linear duration-300"
+              className="rounded-full h-14 w-44 bg-main hover:bg-[#2da50d] transition-all ease-linear duration-300"
             >
               <Link href={"/"}>
                 Live Demo <IoPlayCircle className="ml-2 text-2xl" />
@@ -193,7 +193,7 @@ export default function Footer() {
           </div>
 
           {/* Link */}
-          <div className="text-base underline tracking-wide mt-6 text-white text-opacity-[0.5] hover:text-[#63EC33] transition-all ease-linear duration-200">
+          <div className="text-base underline tracking-wide mt-6 text-white text-opacity-[0.5] hover:text-main transition-all ease-linear duration-200">
             <Link href={"https://www.digisailor.com"} target="_blank">
               www.digisailor.com
             </Link>
@@ -207,7 +207,7 @@ export default function Footer() {
                 href={social.href}
                 title={social.title}
                 target="_blank"
-                className=" text-white text-opacity-[0.5] hover:text-[#63EC33] transition-all ease-linear duration-200 text-lg"
+                className=" text-white text-opacity-[0.5] hover:text-main transition-all ease-linear duration-200 text-lg"
               >
                 <social.name />
               </Link>
@@ -260,7 +260,7 @@ export default function Footer() {
           <div className="mt-6 text-white text-opacity-[0.5]">
             {featuresName.map((feature, featureKey) => (
               <div key={featureKey} className="flex items-center gap-2">
-                <div className="bg-[#63EC33] h-2 w-2 rounded-full"></div>
+                <div className="bg-main h-2 w-2 rounded-full"></div>
                 <p key={featureKey}>{feature.name}</p>
               </div>
             ))}

@@ -48,7 +48,7 @@ export default function Hero() {
         <div className="flex gap-8 mt-6">
           <Button
             asChild
-            className="rounded-full w-40 bg-[#63EC33] hover:bg-[#2da50d] transition-all ease-linear duration-300"
+            className="rounded-full w-40 bg-main hover:bg-[#2da50d] transition-all ease-linear duration-300"
           >
             <Link href={"/"}>
               Live Demo <IoPlayCircle className="ml-2 text-lg" />

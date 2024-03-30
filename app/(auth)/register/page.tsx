@@ -118,7 +118,7 @@ const Register = () => {
                 <div className="flex items-center space-x-2">
                   <Checkbox
                     id="terms"
-                    className="bg-[#63EC33]"
+                    className="bg-main"
                     defaultChecked
                     disabled
                   />
@@ -133,7 +133,7 @@ const Register = () => {
                 <div className="text-[12px]">
                   <Link
                     href={"/sign-in"}
-                    className="underline text-[#63EC33] font-bold"
+                    className="underline text-main font-bold"
                   >
                     Already have an account?
                   </Link>
@@ -142,7 +142,7 @@ const Register = () => {
 
               <div className="mt-4">
                 {!isLoading ? (
-                  <Button className="bg-[#63EC33] hover:bg-[#2da50d] w-96">
+                  <Button className="bg-main hover:bg-[#2da50d] w-96">
                     Register
                   </Button>
                 ) : (
@@ -156,7 +156,7 @@ const Register = () => {
 
             <div className="text-[12px] flex justify-center items-center mt-6">
               Already have an account?{" "}
-              <Link href={"/sign-in"} className="font-bold text-[#63EC33] ml-4">
+              <Link href={"/sign-in"} className="font-bold text-main ml-4">
                 click to Sign In.
               </Link>
             </div>
@@ -232,14 +232,14 @@ const Register = () => {
             transition={{ type: "spring", damping: 10, stiffness: 100 }}
             className="fixed bottom-10 left-0"
           >
-            <Alert className="bg-white bg-opacity-5 backdrop-blur-sm text-[#63EC33] border-[#63EC33]">
-              <TiTick className="h-4 w-4 text-[#63EC33]" />
+            <Alert className="bg-white bg-opacity-5 backdrop-blur-sm text-main border-main">
+              <TiTick className="h-4 w-4 text-main" />
               <AlertTitle>Success</AlertTitle>
               <AlertDescription>
                 Registered successfully now you can
                 <Link
                   href={"/sign-in"}
-                  className="text-[#63EC33] underline font-bold"
+                  className="text-main underline font-bold"
                 >
                   SIGNIN.
                 </Link>

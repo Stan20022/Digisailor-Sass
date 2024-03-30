@@ -18,7 +18,7 @@ export default function FeatureSection() {
             initial={{ x: "-50px", opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ ease: "easeInOut", duration: 1, delay: 0.3 }}
-            className="text-[#63EC33]"
+            className="text-main"
           >
             Save time
           </motion.h1>

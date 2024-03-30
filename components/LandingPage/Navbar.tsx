@@ -13,7 +13,7 @@ const Navbar = () => {
     <nav className="sticky top-0 z-[99]">
       {isNewsToggle && (
         <div className="h-10 w-full bg-[#0C0C0C] flex justify-center items-center gap-4 text-[10px] relative">
-          <div className="h-5 flex justify-center items-center bg-[#63EC33] text-black px-4 py-1 rounded-full">
+          <div className="h-5 flex justify-center items-center bg-main text-black px-4 py-1 rounded-full">
             New Info
           </div>
 
@@ -66,7 +66,7 @@ const Navbar = () => {
           <Button
             asChild
             variant="secondary"
-            className="rounded-full text-white bg-[#63EC33] hover:bg-[#2da50d] transition-all ease-linear"
+            className="rounded-full text-white bg-main hover:bg-[#2da50d] transition-all ease-linear"
           >
             <Link href={"/sign-in"}>start the free trial 🎉</Link>
           </Button>
