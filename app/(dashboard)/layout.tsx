@@ -1,8 +1,10 @@
+import "../globals.scss";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "../globals.scss";
-import SessionProvider from "../SessionProvider";
+import Topbar from "@/components/Dashboard/Topbar";
 import Sidebar from "@/components/Dashboard/Sidebar";
+import SessionProvider from "../providers/SessionProvider";
+import { AuthProvider } from "../providers/AuthContextProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,11 +22,16 @@ export default function Layout({
     <html lang="en">
       <body className={inter.className}>
         <SessionProvider>
-          <div className="flex justify-between items-center w-full">
+          <div className="flex justify-between w-full">
             <div>
               <Sidebar />
             </div>
-            <div className="w-full">{children}</div>
+            <div className="w-full">
+              <AuthProvider>
+                <Topbar />
+                {children}
+              </AuthProvider>
+            </div>
           </div>
         </SessionProvider>
       </body>

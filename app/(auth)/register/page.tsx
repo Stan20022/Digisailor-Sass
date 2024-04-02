@@ -123,7 +123,7 @@ const Register = () => {
           {/* Register Form */}
           <div className="mt-8">
             <form onSubmit={handleSubmit}>
-              <div className="">
+              <div>
                 <div className="flex justify-normal items-center gap-4 border border-gray-200 text-gray-400 text-sm w-96 p-2 rounded-lg">
                   <SlPicture className="text-xl" />
                   <label htmlFor="profile_pic">
