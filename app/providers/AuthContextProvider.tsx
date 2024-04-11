@@ -20,36 +20,37 @@ interface UserContextProps {
 const AuthContext = createContext<UserContextProps>({ user: null });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-    const [user, setUser] = useState<UserProfileData | null>(null);
-  
-    useEffect(() => {
-      const unsubscribe = onAuthStateChanged(auth, async (user: User | null) => {
-        if (user) {
-          const docRef = doc(db, "users", user.uid);
-          const docSnap = await getDoc(docRef);
-  
-          if (docSnap.exists()) {
-            const userData = docSnap.data() as UserProfileData;
-            const storageRef = ref(storage, `profile-pictures/${user.uid}`);
-            const photoURL = await getDownloadURL(storageRef);
-            userData.photoURL = photoURL;
-            setUser(userData);
-          } else {
-            console.log("No such document!");
-          }
+  const [user, setUser] = useState<UserProfileData | null>(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const userData = docSnap.data() as UserProfileData;
+          const storageRef = ref(storage, `profile-pictures/${user.uid}`);
+          const photoURL = await getDownloadURL(storageRef);
+          userData.photoURL = photoURL;
+          setUser(userData);
         } else {
-          setUser(null);
+          console.log("No such document!");
         }
-      });
-  
-      return () => unsubscribe();
-    }, []);
-  
-    return (
-      <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
-    );
-  }
-  
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  return (
+    <AuthContext.Provider value={{ user }}>
+      {children}
+    </AuthContext.Provider>
+  );
+}
 
 export function useAuth() {
   return useContext(AuthContext);

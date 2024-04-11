@@ -38,7 +38,7 @@ const Register = () => {
 
   const [fullName, setFullName] = useState<string>("");
 
-  const handleSubmit = async (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
 
@@ -60,39 +60,32 @@ const Register = () => {
       return;
     }
 
+    const data = {
+      email,
+      password,
+      confirmPassword,
+      fullName,
+      selectedFile,
+    };
     try {
-      const signUpUser = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-      // Firebase Storage
-      if (signUpUser.user && selectedFile) {
-        const storageRef: StorageReference = ref(
-          storage,
-          `profile-pictures/${signUpUser.user.uid}`
-        );
-
-        await uploadBytes(storageRef, selectedFile);
-      }
-
-      //Firestore
-      if (signUpUser.user) {
-        await setDoc(doc(db, "users", signUpUser.user.uid), {
-          email: signUpUser.user.email,
-          uid: signUpUser.user.uid,
-          fullName: fullName,
-          role: "Admin",
-        });
+      if (response.ok) {
         setIsShowSuccess(true);
+      } else {
+        const error = await response.json();
+        setError(error.message);
       }
-      setIsLoading(false);
     } catch (error) {
-      const errorCode = (error as any).code;
-      if (errorCode == "auth/email-already-in-use") {
-        setError("The email address is already in use");
-      }
+      console.log("Error:", error);
+      setError("Something went wrong");
+    } finally {
       setIsLoading(false);
     }
   };

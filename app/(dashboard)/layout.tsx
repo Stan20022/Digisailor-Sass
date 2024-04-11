@@ -4,7 +4,6 @@ import { Inter } from "next/font/google";
 import Topbar from "@/components/Dashboard/Topbar";
 import Sidebar from "@/components/Dashboard/Sidebar";
 import SessionProvider from "../providers/SessionProvider";
-import { AuthProvider } from "../providers/AuthContextProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,10 +26,8 @@ export default function Layout({
               <Sidebar />
             </div>
             <div className="w-full">
-              <AuthProvider>
-                <Topbar />
-                {children}
-              </AuthProvider>
+              <Topbar />
+              {children}
             </div>
           </div>
         </SessionProvider>
