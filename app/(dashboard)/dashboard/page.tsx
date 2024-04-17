@@ -1,26 +1,17 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { signOut, useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
+import { useAuth } from "@/app/providers/AuthContextProvider";
 
 const Dashboard: React.FC = () => {
-  const session = useSession({
-    required: true,
-    onUnauthenticated() {
-      redirect("/sign-in");
-    },
-  });
+  const { userDetails } = useAuth();
 
-  return (
-    <div>
-      <h1>Welcome to the Dashboard</h1>
-      <div className="flex justify-center items-center">
-        <Button variant="secondary" onClick={() => signOut()} className="mt-4">
-          Log Out
-        </Button>
+  if (!userDetails) {
+    return (
+      <div className="fixed top-1/2 left-1/2 bg-white border border-red-600 text-red-600 p-8 rounded-xl">
+        You have to&nbsp;<a href="/sign-in">sign in first</a>
       </div>
-    </div>
-  );
+    );
+  }
+  return <div>Dashboard</div>;
 };
 
 export default Dashboard;

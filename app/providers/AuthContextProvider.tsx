@@ -1,57 +1,70 @@
 "use client";
 import { auth, db, storage } from "@/lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { User, onAuthStateChanged } from "firebase/auth";
-import { createContext, useContext, useEffect, useState } from "react";
 import { getDownloadURL, ref } from "firebase/storage";
+import React, { createContext, useState, useEffect, useContext } from "react";
 
-type UserProfileData = {
-  fullName: string;
-  email: string;
-  uid: string;
-  role: string;
-  photoURL?: string;
-};
-
-interface UserContextProps {
-  user: UserProfileData | null;
+interface AuthState {
+  userDetails: UserDetails | null;
+  profilePicUrl: string | null;
+  signOut: () => Promise<void>;
 }
 
-const AuthContext = createContext<UserContextProps>({ user: null });
+interface UserDetails {
+  email: string;
+  fullName: string;
+  role: string;
+}
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<UserProfileData | null>(null);
+// Create a context
+const AuthContext = createContext<AuthState | undefined>(undefined);
+
+// Create a provider component
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
+  const [profilePicUrl, setProfilePicUrl] = useState<string | null>(null);
+
+  const signOut = async () => {
+    await auth.signOut();
+    setUserDetails(null);
+    setProfilePicUrl(null);
+  };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const docRef = doc(db, "users", user.uid);
+    const fetchUserDetails = async () => {
+      const userId = localStorage.getItem("userId");
+      if (userId) {
+        const docRef = doc(db, "Admins", userId);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-          const userData = docSnap.data() as UserProfileData;
-          const storageRef = ref(storage, `profile-pictures/${user.uid}`);
-          const photoURL = await getDownloadURL(storageRef);
-          userData.photoURL = photoURL;
-          setUser(userData);
+          const data = docSnap.data() as UserDetails;
+          setUserDetails(data);
         } else {
           console.log("No such document!");
         }
-      } else {
-        setUser(null);
-      }
-    });
 
-    return () => unsubscribe();
+        // Get profile picture URL
+        const storageRef = ref(storage, `profile-pictures/${userId}`);
+        const url = await getDownloadURL(storageRef);
+        setProfilePicUrl(url);
+      }
+    };
+
+    fetchUserDetails();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user }}>
+    <AuthContext.Provider value={{ userDetails, profilePicUrl, signOut }}>
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
-export function useAuth() {
-  return useContext(AuthContext);
-}
+export const useAuth = (): AuthState => {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};

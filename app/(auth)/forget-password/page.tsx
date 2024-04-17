@@ -1,8 +1,8 @@
 "use client";
+import Image from "next/image";
 import { useState } from "react";
 import { auth } from "@/lib/firebase";
 import { sendPasswordResetEmail } from "firebase/auth";
-import Image from "next/image";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");

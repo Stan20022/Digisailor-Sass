@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { signIn } from "next-auth/react";
 import { Poppins } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
@@ -18,6 +17,9 @@ import { TfiReload } from "react-icons/tfi";
 import { PiPasswordThin } from "react-icons/pi";
 import { CiWarning, CiMail } from "react-icons/ci";
 
+// Firebase
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/lib/firebase";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "400" });
 
@@ -31,8 +33,8 @@ const SignIn = () => {
   const [isAlertPasswords, setIsAlertPasswords] = useState<boolean>(false);
   const [isShowSuccess, setIsShowSuccess] = useState<boolean>(false);
 
-  const handleSubmit = async (event: FormEvent) => {
-    event.preventDefault();
+  const handleSubmit = async (signIn: FormEvent) => {
+    signIn.preventDefault();
     setIsLoading(true);
 
     if (!email || !password) {
@@ -48,23 +50,24 @@ const SignIn = () => {
     }
 
     try {
-      const userCredential = await signIn("credentials", {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
         email,
-        password,
-        redirect: false,
-        callbackUrl: "/dashboard",
-      });
-      setIsLoading(false);
+        password
+      );
+      const user = userCredential.user;
 
-      if (userCredential && userCredential.ok) {
+      if (user) {
+        localStorage.setItem("userId", user.uid);
         setIsShowSuccess(true);
         router.push("/dashboard");
       } else {
-        setError("LogIn failed due incorrect credentials");
+        setError("error");
       }
     } catch (error) {
-      console.error("Errors", error);
-      setError("Something went wrong! Please try again");
+      console.log("Error:", error);
+      setError("Something went wrong");
+    } finally {
       setIsLoading(false);
     }
   };
@@ -161,10 +164,7 @@ const SignIn = () => {
 
             <div className="text-[12px] flex justify-center items-center mt-6">
               New user ?{" "}
-              <Link
-                href={"/register"}
-                className="font-bold text-main ml-4"
-              >
+              <Link href={"/register"} className="font-bold text-main ml-4">
                 Create an account
               </Link>
             </div>

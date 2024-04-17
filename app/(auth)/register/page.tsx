@@ -18,10 +18,14 @@ import { PiPasswordThin } from "react-icons/pi";
 import { CiUser, CiWarning, CiMail } from "react-icons/ci";
 
 // Firebase
-import { doc, setDoc } from "firebase/firestore";
+import {
+  StorageReference,
+  ref,
+  uploadBytes,
+} from "firebase/storage";
 import { auth, db, storage } from "@/lib/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { StorageReference, ref, uploadBytes } from "firebase/storage";
+import { doc, setDoc } from "firebase/firestore";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "400" });
 
@@ -60,27 +64,35 @@ const Register = () => {
       return;
     }
 
-    const data = {
-      email,
-      password,
-      confirmPassword,
-      fullName,
-      selectedFile,
-    };
     try {
-      const response = await fetch("/api/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
 
-      if (response.ok) {
+      if (user && selectedFile) {
+        const storageRef: StorageReference = ref(
+          storage,
+          `profile-pictures/${user.uid}`
+        );
+        await uploadBytes(storageRef, selectedFile);
+      }
+
+      if (user) {
+        await setDoc(doc(db, "Admins", user.uid), {
+          email: user.email,
+          uid: user.uid,
+          fullName,
+          role: "Admin",
+        });
+      }
+
+      if (userCredential) {
         setIsShowSuccess(true);
       } else {
-        const error = await response.json();
-        setError(error.message);
+        setError("error");
       }
     } catch (error) {
       console.log("Error:", error);

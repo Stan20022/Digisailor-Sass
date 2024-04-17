@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Topbar from "@/components/Dashboard/Topbar";
 import Sidebar from "@/components/Dashboard/Sidebar";
-import SessionProvider from "../providers/SessionProvider";
+import { AuthProvider } from "../providers/AuthContextProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +20,7 @@ export default function Layout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <SessionProvider>
+        <AuthProvider>
           <div className="flex justify-between w-full">
             <div>
               <Sidebar />
@@ -30,7 +30,7 @@ export default function Layout({
               {children}
             </div>
           </div>
-        </SessionProvider>
+        </AuthProvider>
       </body>
     </html>
   );

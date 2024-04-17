@@ -4,10 +4,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { redirect } from "next/navigation";
+import { Input } from "../ui/input";
+import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { signOut, useSession } from "next-auth/react";
 import { useAuth } from "@/app/providers/AuthContextProvider";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
@@ -15,18 +15,17 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { GoPeople } from "react-icons/go";
 import { CiSearch } from "react-icons/ci";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import { Input } from "../ui/input";
 
 const Topbar = () => {
-  const { user } = useAuth();
+  const router = useRouter();
   const pathname = usePathname();
+  const { userDetails, profilePicUrl, signOut } = useAuth();
 
-  const session = useSession({
-    required: true,
-    onUnauthenticated() {
-      redirect("/sign-in");
-    },
-  });
+  // Sign Out
+  const handleSignOut = () => {
+    signOut();
+    router.push("/sign-in");
+  };
 
   return (
     <section className="h-10 flex items-center justify-between p-8">
@@ -51,46 +50,39 @@ const Topbar = () => {
         <div>
           <IoIosNotificationsOutline className="text-2xl" />
         </div>
-        {user && (
-          <div>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Avatar>
-                  {user.photoURL && (
-                    <AvatarImage src={user.photoURL} alt="@shadcn" />
-                  )}
-                  <AvatarFallback>
-                    <GoPeople />
-                  </AvatarFallback>
-                </Avatar>
-              </PopoverTrigger>
-              <PopoverContent className="w-fit text-sm mr-10">
-                <div className="flex justify-start items-center gap-4">
-                  Name: {user.fullName}
-                </div>
-                <div className="flex justify-start items-center gap-4">
-                  Role: {user.role}
-                </div>
-                <div className="flex justify-start items-center gap-4">
-                  Email: {session?.data?.user?.email}
-                </div>
-                <div className="flex justify-start items-center gap-4">
-                  User ID: {user.uid}
-                </div>
+        <div>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Avatar>
+                {profilePicUrl && (
+                  <AvatarImage src={profilePicUrl} alt="@shadcn" />
+                )}
+                <AvatarFallback>
+                  <GoPeople />
+                </AvatarFallback>
+              </Avatar>
+            </PopoverTrigger>
+            <PopoverContent className="w-fit text-sm mr-10 p-8">
+              {userDetails ? (
+                <>
+                  <div>
+                    <p>Email: {userDetails.email}</p>
+                    <p>Full Name: {userDetails.fullName}</p>
+                    <p>Role: {userDetails.role}</p>
+                  </div>
 
-                <div className="flex justify-center items-center">
-                  <Button
-                    variant="secondary"
-                    onClick={() => signOut()}
-                    className="mt-4"
-                  >
-                    Log Out
-                  </Button>
-                </div>
-              </PopoverContent>
-            </Popover>
-          </div>
-        )}
+                  <div className="pt-4">
+                    <Button onClick={handleSignOut} variant={"outline"}>
+                      SignOut
+                    </Button>
+                  </div>
+                </>
+              ) : (
+                <div className="font-bold">You have to login first</div>
+              )}
+            </PopoverContent>
+          </Popover>
+        </div>
       </div>
     </section>
   );
