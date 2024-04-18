@@ -3,7 +3,7 @@
 import { landingPageMenu } from "@/lib/constants";
 import Link from "next/link";
 
-const LandingPage = ({ children }: { children: React.ReactNode }) => {
+const LandingPage = () => {
   return (
     <section className="px-8">
       <div className="flex">
@@ -20,7 +20,7 @@ const LandingPage = ({ children }: { children: React.ReactNode }) => {
         </div>
 
         {/* Actions */}
-        <div className="w-[80%]">{children}</div>
+        <div className="w-[80%]"></div>
       </div>
     </section>
   );
