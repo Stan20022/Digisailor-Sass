@@ -60,7 +60,7 @@ const Sidebar = () => {
                 <Link
                   key={menuIndex}
                   href={menu.href}
-                  className={`flex justify-normal items-center gap-4 py-2 text-sm px-4 transition-all ease-in-out duration-500 hover:bg-main hover:text-white ${
+                  className={`flex justify-normal items-center gap-4 text-sm p-4 transition-all ease-in-out duration-500 hover:bg-main hover:text-white ${
                     isActive ? "bg-main text-white" : "bg-white text-black"
                   }`}
                 >

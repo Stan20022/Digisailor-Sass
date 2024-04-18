@@ -11,7 +11,7 @@ const Dashboard: React.FC = () => {
       </div>
     );
   }
-  return <div>Dashboard</div>;
+  return <section className="px-8">Dashboard</section>;
 };
 
 export default Dashboard;
