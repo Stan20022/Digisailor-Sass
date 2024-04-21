@@ -28,7 +28,7 @@ const Topbar = () => {
   };
 
   return (
-    <section className="h-10 flex items-center justify-between p-8">
+    <section className="h-10 flex items-center justify-between p-8 shadow-sm">
       {pathname && (
         <div className="capitalize font-bold tracking-wide">
           {pathname.replace("/", "")}

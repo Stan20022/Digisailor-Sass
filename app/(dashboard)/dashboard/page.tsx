@@ -1,7 +1,8 @@
 "use client";
 import { useAuth } from "@/app/providers/AuthContextProvider";
+import { FC } from "react";
 
-const Dashboard: React.FC = () => {
+const Dashboard: FC = () => {
   const { userDetails } = useAuth();
 
   if (!userDetails) {

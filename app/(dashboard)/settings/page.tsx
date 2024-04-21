@@ -1,9 +1,7 @@
-import React from "react";
+import { FC } from "react";
 
-const Settings = () => {
+const Settings: FC = () => {
   return <div>Settings</div>;
 };
 
 export default Settings;
-
-Settings.requireAuth = true;

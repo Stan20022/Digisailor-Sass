@@ -1,7 +1,12 @@
-"use client"
+"use client";
 /* eslint-disable @next/next/no-img-element */
-import { useState, useRef, useEffect } from 'react';
-import { DotsThreeVertical, PencilSimple, LockKeyOpen, Trash } from 'phosphor-react';
+import { useState, useRef, useEffect, FC } from "react";
+import {
+  DotsThreeVertical,
+  PencilSimple,
+  LockKeyOpen,
+  Trash,
+} from "phosphor-react";
 
 type User = {
   name: string;
@@ -18,50 +23,50 @@ type UserCardProps = User & {
 
 const Users: User[] = [
   {
-    name: 'Editor',
-    email: 'editor@example.com',
-    role: 'Editor',
-    imageUrl: 'https://via.placeholder.com/50',
+    name: "Editor",
+    email: "editor@example.com",
+    role: "Editor",
+    imageUrl: "https://via.placeholder.com/50",
   },
   {
-    name: 'Assistant',
-    email: 'assistant@example.com',
-    role: 'Assistant',
-    imageUrl: 'https://via.placeholder.com/50',
+    name: "Assistant",
+    email: "assistant@example.com",
+    role: "Assistant",
+    imageUrl: "https://via.placeholder.com/50",
   },
   {
-    name: 'Hedley Ware',
-    email: 'lycosovyma@mailinator.com',
-    role: 'Assistant',
-    imageUrl: 'https://via.placeholder.com/50',
+    name: "Hedley Ware",
+    email: "lycosovyma@mailinator.com",
+    role: "Assistant",
+    imageUrl: "https://via.placeholder.com/50",
   },
   {
-    name: 'Emerson Harper',
-    email: 'najez@mailinator.com',
-    role: 'Editor',
-    imageUrl: 'https://via.placeholder.com/50',
+    name: "Emerson Harper",
+    email: "najez@mailinator.com",
+    role: "Editor",
+    imageUrl: "https://via.placeholder.com/50",
   },
   {
-    name: 'Dieter Montgomery',
-    email: 'fetafomex@mailinator.com',
-    role: 'Editor',
-    imageUrl: 'https://via.placeholder.com/50',
+    name: "Dieter Montgomery",
+    email: "fetafomex@mailinator.com",
+    role: "Editor",
+    imageUrl: "https://via.placeholder.com/50",
   },
   {
-    name: 'Ahmed Figueroa',
-    email: 'revybyvo@mailinator.com',
-    role: 'Editor',
-    imageUrl: 'https://via.placeholder.com/50',
+    name: "Ahmed Figueroa",
+    email: "revybyvo@mailinator.com",
+    role: "Editor",
+    imageUrl: "https://via.placeholder.com/50",
   },
   {
-    name: 'Armando Barton',
-    email: 'sema@mallinator.com',
-    role: 'Editor',
-    imageUrl: 'https://via.placeholder.com/50',
+    name: "Armando Barton",
+    email: "sema@mallinator.com",
+    role: "Editor",
+    imageUrl: "https://via.placeholder.com/50",
   },
 ];
 
-const UserManagementPage = () => {
+const UserManagementPage: FC = () => {
   const [openDropdownIndex, setOpenDropdownIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -71,21 +76,27 @@ const UserManagementPage = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
         setOpenDropdownIndex(-1);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [containerRef]);
 
   return (
     <div className="flex bg-white min-h-screen" ref={containerRef}>
       <main className="py-8 px-24">
-        <div className="grid h-96 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6" style={{ height: '600px', gap: '20px' }}>
+        <div
+          className="grid h-96 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"
+          style={{ height: "600px", gap: "20px" }}
+        >
           {Users.map((user, index) => (
             <UserCard
               key={index}
@@ -104,31 +115,55 @@ const UserManagementPage = () => {
   );
 };
 
-const UserCard = ({ index, name, email, role, imageUrl, isOpen, onOpen }: UserCardProps) => {
+const UserCard = ({
+  index,
+  name,
+  email,
+  role,
+  imageUrl,
+  isOpen,
+  onOpen,
+}: UserCardProps) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         onOpen(-1);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dropdownRef, onOpen]);
 
   return (
-    <div className="bg-white shadow-lg rounded-2xl p-4 relative" style={{ height: '300px', gap: '20px' }}>
+    <div
+      className="bg-white shadow-lg rounded-2xl p-4 relative"
+      style={{ height: "300px", gap: "20px" }}
+    >
       <div className="items-center">
         <div className="items-center">
           <div className="flex">
-            <div style={{ marginTop: '-10px' }}>
-              <span className="bg-green-500 text-white font-bold py-1 px-3 rounded">{role}</span>
+            <div style={{ marginTop: "-10px" }}>
+              <span className="bg-green-500 text-white font-bold py-1 px-3 rounded">
+                {role}
+              </span>
             </div>
-            <div className="relative" style={{ top: '-14px', marginLeft: '180px', marginTop: '15px', position: 'absolute' }}>
+            <div
+              className="relative"
+              style={{
+                top: "-14px",
+                marginLeft: "180px",
+                marginTop: "15px",
+                position: "absolute",
+              }}
+            >
               <button
                 className="focus:outline-none rounded-full"
                 onClick={() => onOpen(index)}
@@ -159,9 +194,13 @@ const UserCard = ({ index, name, email, role, imageUrl, isOpen, onOpen }: UserCa
           </div>
         </div>
         <div className="block justify-center">
-          <img src={imageUrl} alt={name} className="rounded-full ml-10 mt-8 w-24 h-24" />
+          <img
+            src={imageUrl}
+            alt={name}
+            className="rounded-full ml-10 mt-8 w-24 h-24"
+          />
         </div>
-        <div style={{ marginTop: '40px' }}>
+        <div style={{ marginTop: "40px" }}>
           <h3 className="font-bold justify-center">{name}</h3>
           <p className="text-gray-500 text-sm">{email}</p>
         </div>
