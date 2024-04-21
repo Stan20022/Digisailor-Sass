@@ -4,7 +4,89 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+<<<<<<< HEAD
+dependencies:
+  '@auth/firebase-adapter':
+    specifier: ^1.5.0
+    version: 1.5.0(firebase-admin@12.0.0)
+  '@radix-ui/react-avatar':
+    specifier: ^1.0.4
+    version: 1.0.4(@types/react-dom@18.2.21)(@types/react@18.2.64)(react-dom@18.2.0)(react@18.2.0)
+  '@radix-ui/react-checkbox':
+    specifier: ^1.0.4
+    version: 1.0.4(@types/react-dom@18.2.21)(@types/react@18.2.64)(react-dom@18.2.0)(react@18.2.0)
+  '@radix-ui/react-popover':
+    specifier: ^1.0.7
+    version: 1.0.7(@types/react-dom@18.2.21)(@types/react@18.2.64)(react-dom@18.2.0)(react@18.2.0)
+  '@radix-ui/react-slot':
+    specifier: ^1.0.2
+    version: 1.0.2(@types/react@18.2.64)(react@18.2.0)
+  '@studio-freight/react-lenis':
+    specifier: ^0.0.45
+    version: 0.0.45(@types/react@18.2.64)(react-dom@18.2.0)(react@18.2.0)
+  chart.js:
+    specifier: ^4.4.2
+    version: 4.4.2
+  class-variance-authority:
+    specifier: ^0.7.0
+    version: 0.7.0
+  clsx:
+    specifier: ^2.1.0
+    version: 2.1.0
+  firebase:
+    specifier: ^10.9.0
+    version: 10.9.0
+  firebase-admin:
+    specifier: ^12.0.0
+    version: 12.0.0
+  firebase-hooks:
+    specifier: ^0.0.1
+    version: 0.0.1
+  firebase-tools:
+    specifier: ^13.7.2
+    version: 13.7.2
+  framer-motion:
+    specifier: ^11.0.8
+    version: 11.0.8(react-dom@18.2.0)(react@18.2.0)
+  gsap:
+    specifier: ^3.12.5
+    version: 3.12.5
+  lucide-react:
+    specifier: ^0.354.0
+    version: 0.354.0(react@18.2.0)
+  next:
+    specifier: 14.1.3
+    version: 14.1.3(react-dom@18.2.0)(react@18.2.0)(sass@1.71.1)
+  phosphor-react:
+    specifier: ^1.4.1
+    version: 1.4.1(react@18.2.0)
+  react:
+    specifier: ^18
+    version: 18.2.0
+  react-chartjs-2:
+    specifier: ^5.2.0
+    version: 5.2.0(chart.js@4.4.2)(react@18.2.0)
+  react-dom:
+    specifier: ^18
+    version: 18.2.0(react@18.2.0)
+  react-icons:
+    specifier: ^5.0.1
+    version: 5.0.1(react@18.2.0)
+  sass:
+    specifier: ^1.71.1
+    version: 1.71.1
+  swiper:
+    specifier: ^11.0.7
+    version: 11.0.7
+  tailwind-merge:
+    specifier: ^2.2.1
+    version: 2.2.1
+  tailwindcss-animate:
+    specifier: ^1.0.7
+    version: 1.0.7(tailwindcss@3.4.1)
+=======
 importers:
+>>>>>>> 0fe9893e730c004b5ee19315935fbbf4731d4ffd
 
   .:
     dependencies:
@@ -4783,7 +4865,17 @@ snapshots:
     dependencies:
       lodash: 4.17.21
 
+<<<<<<< HEAD
+  /@kurkle/color@0.3.2:
+    resolution: {integrity: sha512-fuscdXJ9G1qb7W8VdHi+IwRqij3lBkosAm4ydQtEmbY58OzHXqQhvlxqEkoz0yssNVn38bcpRWgA9PP+OGoisw==}
+    dev: false
+
+  /@next/env@14.1.3:
+    resolution: {integrity: sha512-VhgXTvrgeBRxNPjyfBsDIMvgsKDxjlpw4IAUsHCX8Gjl1vtHUYRT3+xfQ/wwvLPDd/6kqfLqk9Pt4+7gysuCKQ==}
+    dev: false
+=======
   '@next/env@14.1.3': {}
+>>>>>>> 0fe9893e730c004b5ee19315935fbbf4731d4ffd
 
   '@next/eslint-plugin-next@14.1.3':
     dependencies:
@@ -5736,7 +5828,20 @@ snapshots:
 
   chardet@0.7.0: {}
 
+<<<<<<< HEAD
+  /chart.js@4.4.2:
+    resolution: {integrity: sha512-6GD7iKwFpP5kbSD4MeRRRlTnQvxfQREy36uEtm1hzHzcOqwWx0YEHuspuoNlslu+nciLIB7fjjsHkUv/FzFcOg==}
+    engines: {pnpm: '>=8'}
+    dependencies:
+      '@kurkle/color': 0.3.2
+    dev: false
+
+  /chokidar@3.6.0:
+    resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
+    engines: {node: '>= 8.10.0'}
+=======
   chokidar@3.6.0:
+>>>>>>> 0fe9893e730c004b5ee19315935fbbf4731d4ffd
     dependencies:
       anymatch: 3.1.3
       braces: 3.0.2
@@ -8265,7 +8370,24 @@ snapshots:
       - supports-color
     optional: true
 
+<<<<<<< HEAD
+  /react-chartjs-2@5.2.0(chart.js@4.4.2)(react@18.2.0):
+    resolution: {integrity: sha512-98iN5aguJyVSxp5U3CblRLH67J8gkfyGNbiK3c+l1QI/G4irHMPQw44aEPmjVag+YKTyQ260NcF82GTQ3bdscA==}
+    peerDependencies:
+      chart.js: ^4.1.1
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      chart.js: 4.4.2
+      react: 18.2.0
+    dev: false
+
+  /react-dom@18.2.0(react@18.2.0):
+    resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
+    peerDependencies:
+      react: ^18.2.0
+=======
   react-dom@18.2.0(react@18.2.0):
+>>>>>>> 0fe9893e730c004b5ee19315935fbbf4731d4ffd
     dependencies:
       loose-envify: 1.4.0
       react: 18.2.0

@@ -75,6 +75,11 @@ export const sidebarMenuItems: SidebarMenuItems[] = [
     icons: GoPeople,
   },
   {
+    href: "/companies",
+    menu: "Companies",
+    icons: GoPeople,
+  },
+  {
     href: "/appointment",
     menu: "Appointments",
     icons: GoCalendar,
