@@ -9,7 +9,6 @@ import { GoPeople, GoCalendar, GoBriefcase } from "react-icons/go";
 // Social icons
 import { IoMail } from "react-icons/io5";
 import { FaWhatsapp } from "react-icons/fa6";
-import { MdChevronRight } from "react-icons/md";
 import { FaLinkedin, FaFacebook } from "react-icons/fa";
 
 // Interfaces for constants
@@ -37,12 +36,6 @@ interface FeaturesName {
 interface FeatureSwiper {
   heading: string;
   description: string;
-}
-
-interface LandingPageMenu {
-  href: string;
-  name: string;
-  icon: any;
 }
 
 // constants
@@ -107,8 +100,8 @@ export const sidebarMenuItems: SidebarMenuItems[] = [
     icons: PiPaperPlaneTiltLight,
   },
   {
-    href: "/landing-page",
-    menu: "Landing Page",
+    href: "/email-templates",
+    menu: "Email Templates",
     icons: CgWebsite,
   },
   {
@@ -205,48 +198,5 @@ export const featureSwiper: FeatureSwiper[] = [
     heading: "Customizations",
     description:
       "Options and tools to tailor the product or service to meet specific needs or preferences, enhancing user experience and satisfaction.",
-  },
-];
-
-export const landingPageMenu: LandingPageMenu[] = [
-  {
-    href: "/topbar",
-    name: "Topbar",
-    icon: MdChevronRight,
-  },
-  {
-    href: "/custompage",
-    name: "Custom Page",
-    icon: MdChevronRight,
-  },
-  {
-    href: "/home",
-    name: "Home",
-    icon: MdChevronRight,
-  },
-  {
-    href: "/feature",
-    name: "Feature",
-    icon: MdChevronRight,
-  },
-  {
-    href: "/discover",
-    name: "Discover",
-    icon: MdChevronRight,
-  },
-  {
-    href: "/screenshot",
-    name: "Screenshot",
-    icon: MdChevronRight,
-  },
-  {
-    href: "/faq",
-    name: "FAQ",
-    icon: MdChevronRight,
-  },
-  {
-    href: "/testimonials",
-    name: "Testimonials",
-    icon: MdChevronRight,
   },
 ];

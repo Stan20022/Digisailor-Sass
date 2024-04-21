@@ -7,7 +7,7 @@ import { FC } from "react";
 
 Chart.register(...registerables);
 
-const Dashboard: React.FC = () => {
+const Dashboard: FC = () => {
   const { userDetails } = useAuth();
   const totalUsers = 10;
   const totalOrders = 35;
