@@ -2,9 +2,9 @@
 import { FC } from "react";
 
 // Icons
-import { LuCrown, LuSailboat } from "react-icons/lu";
 import { GiShipWheel } from "react-icons/gi";
 import { Button } from "@/components/ui/button";
+import { LuCrown, LuSailboat } from "react-icons/lu";
 
 const Plans: FC = () => {
   return (
