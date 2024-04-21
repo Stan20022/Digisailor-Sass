@@ -61,7 +61,7 @@ const Dashboard: FC = () => {
   }
 
   return (
-    <section className="px-8 mt-16">
+    <section className="px-8 mt-8">
       <h1 className="text-2xl font-bold mb-4"></h1>
       <div className="grid grid-cols-3 gap-4 mb-8">
         <div className="bg-green-100 rounded-lg p-4 flex items-center">
