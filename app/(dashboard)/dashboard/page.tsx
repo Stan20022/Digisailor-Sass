@@ -3,15 +3,29 @@ import { useAuth } from "@/app/providers/AuthContextProvider";
 import { Line, Bar } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
 import { FaUsers, FaShoppingCart, FaMoneyBillAlt } from "react-icons/fa";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
+import { db } from "@/lib/firebase"; // import your firebase instance
+import { collection, getDocs } from 'firebase/firestore';
 
 Chart.register(...registerables);
 
 const Dashboard: FC = () => {
   const { userDetails } = useAuth();
-  const totalUsers = 10;
+  const [totalUsers, setTotalUsers] = useState(0); // initialize totalUsers state
   const totalOrders = 35;
-  const totalPlans = 5;
+  const totalPlans = 3;
+
+  // Fetch total users from Firestore
+  useEffect(() => {
+    const fetchTotalUsers = async () => {
+      const companiesCol = collection(db, 'companies');
+      const snapshot = await getDocs(companiesCol);
+      setTotalUsers(snapshot.size);
+    };
+  
+    fetchTotalUsers();
+  }, []);
+
   const recentOrderData = {
     labels: ["10:00", "11:00", "12:00", "13:00", "14:00", "15:00"],
     datasets: [
@@ -55,7 +69,7 @@ const Dashboard: FC = () => {
   if (!userDetails) {
     return (
       <div className="fixed top-1/2 left-1/2 bg-white border border-red-600 text-red-600 p-8 rounded-xl">
-        You have to&nbsp;<a href="/sign-in">sign in first</a>
+        You have to <a href="/sign-in">sign in first</a>
       </div>
     );
   }
