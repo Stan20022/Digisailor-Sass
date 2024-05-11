@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "saas-clone"
-  }
+    "default": "digisailor-saas-3e810",
+    "staging": "digisailor-saas-3e810"
+  },
+  "targets": {},
+  "etags": {}
 }
