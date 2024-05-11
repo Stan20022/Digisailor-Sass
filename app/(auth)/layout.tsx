@@ -19,4 +19,6 @@ export default function Layout({
       <body className={inter.className}>{children}</body>
     </html>
   );
+
+  
 }
